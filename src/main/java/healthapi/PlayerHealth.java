@@ -1,6 +1,7 @@
 package healthapi;
 
 
+import cn.nukkit.Nukkit;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.utils.Config;
@@ -20,10 +21,12 @@ import java.util.Map;
  */
 public class PlayerHealth  {
 
-
+    /** fk */
+    private static LinkedHashMap<String, Long> blockDamageCoolMap = new LinkedHashMap<>();
+    private long blockDamageCool = Nukkit.START_TIME;
     private double heal = 0.5;
 
-    private final String playerName;
+    private String playerName;
 
     private double health;
 
@@ -47,7 +50,10 @@ public class PlayerHealth  {
        this.health = health;
        this.maxHealth = maxHealth;
        this.addHeaths = addHeaths;
-       this.levelHealth = levelhealth;
+
+       if (blockDamageCoolMap.containsKey(playerName)) {
+           this.blockDamageCool = blockDamageCoolMap.get(playerName);
+       }
    }
 
 
@@ -93,6 +99,15 @@ public class PlayerHealth  {
         return heal;
     }
 
+    public long getBlockDamageCool() {
+        return blockDamageCool;
+    }
+
+    public boolean setBlockDamageCool(long time) {
+        blockDamageCool = time;
+        blockDamageCoolMap.put(playerName, time);
+        return true;
+    }
 
 
 
