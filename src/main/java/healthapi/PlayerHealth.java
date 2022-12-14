@@ -21,12 +21,12 @@ import java.util.Map;
  */
 public class PlayerHealth  {
 
-    /** fk */
+    /** 玩家被方块伤害的时间戳Map */
     private static LinkedHashMap<String, Long> blockDamageCoolMap = new LinkedHashMap<>();
     private long blockDamageCool = Nukkit.START_TIME;
     private double heal = 0.5;
 
-    private String playerName;
+    private final String playerName;
 
     private double health;
 
@@ -50,6 +50,7 @@ public class PlayerHealth  {
        this.health = health;
        this.maxHealth = maxHealth;
        this.addHeaths = addHeaths;
+       this.levelHealth = levelhealth;
 
        if (blockDamageCoolMap.containsKey(playerName)) {
            this.blockDamageCool = blockDamageCoolMap.get(playerName);
